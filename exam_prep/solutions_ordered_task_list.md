@@ -33,7 +33,7 @@ systemctl reboot
 nmcli con show
 
 ### Output shows `enp0s8` as unconfigured
-nmcli con mod enp0s8 ipv4.method manual ipv4.addresses "192.168.55.71/24" ipv4.gateway "192.168.55.1" ipv4.dns "8.8.8.8" ipv6.method manual ipv6.addresses "2002:fe60:def0::55/64"
+nmcli con mod enp0s8 ipv4.method manual ipv4.addresses "192.168.1.86/24" ipv4.gateway "192.168.1.254" ipv4.dns "8.8.8.8" ipv6.method manual ipv6.addresses "2002:fe60:def0::55/64"
 nmcli con down enp0s8
 nmcli con up enp0s8
 nmcli general hostname rhcsa9-server1
@@ -45,7 +45,7 @@ nmcli con show enp0s8
 nmcli con show
 
 ### Output shows `enp0s8` as unconfigured
-nmcli con mod enp0s8 ipv4.method manual ipv4.addresses "192.168.55.72/24" ipv4.gateway "192.168.55.1" ipv4.dns "8.8.8.8" ipv6.method manual ipv6.addresses "2002:fe60:def0::56/64"
+nmcli con mod enp0s8 ipv4.method manual ipv4.addresses "192.168.1.85/24" ipv4.gateway "192.168.1.254" ipv4.dns "8.8.8.8" ipv6.method manual ipv6.addresses "2002:fe60:def0::56/64"
 nmcli con down enp0s8
 nmcli con up enp0s8
 nmcli general hostname rhcsa9-server1
@@ -82,11 +82,11 @@ systemctl restart sshd
 ```
 ### On server1:
 ssh-keygen
-ssh-copy-id root@192.168.55.72
-scp /root/.ssh/* root@192.168.55.72:/root/.ssh
+ssh-copy-id root@192.168.1.85
+scp /root/.ssh/* root@192.168.1.85:/root/.ssh
 
 ### On server2:
-ssh-copy-id root@192.168.55.71
+ssh-copy-id root@192.168.1.86
 ```
 
 **6.** Configure the repos on server1.
@@ -100,13 +100,13 @@ vi /etc/yum.repos.d/local.repo
 [BaseOS]
 name=BaseOS
 enabled=1
-baseurl=http://192.168.55.47/repo/BaseOS/
+baseurl=http://192.168.1.87/repo/BaseOS/
 gpgcheck=0
 
 [AppStream]
 name=AppStream
 enabled=1
-baseurl=http://192.168.55.47/repo/AppStream/
+baseurl=http://192.168.1.87/repo/AppStream/
 gpgcheck=0
 
 [F37]
@@ -121,10 +121,10 @@ gpgcheck=0
 #### **Solution to Task 7**
 ```
 ### On server1:
-scp /etc/yum.repos.d/local.repo root@192.168.55.72:/etc/yum.repos.d/
+scp /etc/yum.repos.d/local.repo root@192.168.1.85:/etc/yum.repos.d/
 ```
 
-**8.** Configure autofs to automatically mount individual users' home directories from `/export/home` on 192.168.55.47 to `/mnt/autofs_home/<user_name>`.
+**8.** Configure autofs to automatically mount individual users' home directories from `/export/home` on 192.168.1.87 to `/mnt/autofs_home/<user_name>`.
 
 #### **Solution to Task 8**
 ```
@@ -137,7 +137,7 @@ mkdir /mnt/autofs_home
 /mnt/autofs_home /etc/auto.home
 
 ### Create and add the following to /etc/auto.home:
-* 192.168.55.47:/export/home/&
+* 192.168.1.87:/export/home/&
 
 systemctl restart autofs
 ```
@@ -246,8 +246,8 @@ useradd -u 1015 -G dba_intern,dba_staff cindy
 
 #### **Solution to Task 12**
 ```
-scp create* root@192.168.55.72:/root/
-scp *.txt root@192.168.55.72:/root/
+scp create* root@192.168.1.85:/root/
+scp *.txt root@192.168.1.85:/root/
 
 ### Now on server2:
 ./creategroup.sh
@@ -376,7 +376,7 @@ find /etc -type f -size +3M -exec cp {} /largefiles \; 2>/dev/null
 ls -al /largefiles/
 ```
 
-**22.** On both servers persistently mount `/export/dba_files` from the server 192.168.55.47 under `/mnt/dba_files`. Ensure manny is the user owner and dba_staff is the group owner. Ensure the groupID is applied to newly created files. Ensure users can only delete files they have created. Ensure only members of the dba_staff group can access the directory.
+**22.** On both servers persistently mount `/export/dba_files` from the server 192.168.1.87 under `/mnt/dba_files`. Ensure manny is the user owner and dba_staff is the group owner. Ensure the groupID is applied to newly created files. Ensure users can only delete files they have created. Ensure only members of the dba_staff group can access the directory.
 
 #### **Solution to Task 22**
 ```
@@ -384,7 +384,7 @@ mkdir /mnt/dba_files
 vi /etc/fstab
 
 ### Add the following line to /etc/fstab:
-192.168.55.47:/export/dba_files  /mnt/dba_files  nfs  defaults  0 0
+192.168.1.87:/export/dba_files  /mnt/dba_files  nfs  defaults  0 0
 
 ### Write and quit /etc/fstab, then check the mount:
 mount -a
@@ -395,7 +395,7 @@ chmod 770 /mnt/dba_files
 chmod g+s,+t /mnt/dba_files
 ```
 
-**23.** On both servers persistently mount `/export/it_files` from the server 192.168.55.47 under `/mnt/it_files`. Ensure marcia is the user owner and it_staff is the group owner. Ensure the groupID is applied to newly created files. Ensure users can only delete files they have created. Ensure only members of the it_staff group can access the directory.
+**23.** On both servers persistently mount `/export/it_files` from the server 192.168.1.87 under `/mnt/it_files`. Ensure marcia is the user owner and it_staff is the group owner. Ensure the groupID is applied to newly created files. Ensure users can only delete files they have created. Ensure only members of the it_staff group can access the directory.
 
 #### **Solution to Task 23**
 ```
@@ -403,7 +403,7 @@ mkdir /mnt/it_files
 vi /etc/fstab
 
 ### Add the following line to /etc/fstab:
-192.168.55.47:/export/it_files  /mnt/it_files  nfs  defaults  0 0
+192.168.1.87:/export/it_files  /mnt/it_files  nfs  defaults  0 0
 
 ### Write and quit /etc/fstab, then check the mount:
 mount -a
@@ -975,7 +975,7 @@ q
 pkill stress-ng
 ```
 
-**42.** On server1, as the user `cindy`, create a container image from http://192.168.55.47/containers/Containerfile with the tag `web_image`.
+**42.** On server1, as the user `cindy`, create a container image from http://192.168.1.87/containers/Containerfile with the tag `web_image`.
 
 #### **Solution to Task 42**
 As root, enable linger for cindy:
@@ -984,7 +984,7 @@ loginctl enable-linger cindy
 ```
 Login separately as cindy. It needs to be a fresh login, do not use `su -`. Then build the image:
 ```
-podman build -t web_image http://192.168.55.47/containers/Containerfile
+podman build -t web_image http://192.168.1.87/containers/Containerfile
 ```
 
 If we run a `podman images` now, we should see the newly created image:
