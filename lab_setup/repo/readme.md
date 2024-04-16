@@ -7,7 +7,7 @@
   - 1 NAT for internet access
   - 1 Local Host for machine and other server access
 - OS: RHEL 9.0 Minimal Install
-- IP Address: 192.168.55.47/24
+- IP Address: 192.168.1.87/24
 
 ## Repo Setup
 Follow dvd_based_repo_creation.md to setup the repos.
