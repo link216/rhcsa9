@@ -14,8 +14,8 @@ Follow dvd_based_repo_creation.md to setup the repos.
 
 Repos will be hosted under:
 ```
-http://192.168.55.47/repo/BaseOS/
-http://192.168.55.47/repo/AppStream/
+http://192.168.1.87/repo/BaseOS/
+http://192.168.1.87/repo/AppStream/
 ```
 Server Location:
 ```
@@ -29,7 +29,7 @@ Follow nfs_setup.md to setup the NFS server. This will host both regular NFS and
 ## Containerfile
 Host the Containerfile under:
 ```
-http://192.168.55.47/containers/Containerfile
+http://192.168.1.87/containers/Containerfile
 ```
 Server Location:
 ```
