@@ -57,8 +57,8 @@ dnf search httpd --repo AppStream
 
 ## 8. Copy repos to the html directory
 ```
-cp -r -v /mnt/cdrom/AppStream /var/www/html/repo
-cp -r -v /mnt/cdrom/BaseOS /var/www/html/repo
+cp -r -v /mnt/cdrom/AppStream /var/www/html/repo &
+cp -r -v /mnt/cdrom/BaseOS /var/www/html/repo & 
 ```
 
 ## 9. Change 'baseurl' to point to the new location for repo data
