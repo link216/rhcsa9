@@ -150,9 +150,9 @@ autofs
 - `/etc/autofs.conf` is the main config file. Works out of the box, unless you need to tweak it.
 - `/etc/auto.master` is the master map, which points to individual map files
 - Map files are configuration files for individual on-demand mount points (e.g. /etc/auto.home)
-- The map file points to the file server
+- The map file points to the file server and the origin nfs shared
   - `/etc/auto.home` contains `* 192.168.55.71:/export/home/&`
-- The master file points to the map file
+- The master file points to the map file and describes the mount point where the nfs will be mounted 
   - `/etc/auto.master` contains `/mnt/nfs_home /etc/auto.home`
 
 ### File Permissions
