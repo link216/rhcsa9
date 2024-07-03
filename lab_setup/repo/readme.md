@@ -37,7 +37,7 @@ Server Location:
 create the following path and paste the ContainerFile
 mkdir -p /var/www/html/containers/Containerfile
 
-and paste the information on this https://github.com/link216/rhcsa9/blob/main/lab_setup/repo/Containerfile
+and paste the information from this file  https://github.com/link216/rhcsa9/blob/main/lab_setup/repo/Containerfile
 ```
 ## Resetting the Server
 To reset the server between exam sessions, you should repermission the NFS shares that have been tweaked during the exam tasks, and cleanup the home directories:
