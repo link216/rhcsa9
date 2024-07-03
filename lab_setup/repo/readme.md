@@ -34,7 +34,7 @@ http://192.168.1.87/containers/Containerfile
 ```
 Server Location:
 ```
-create the following path if needed
+create the following path
 mkdir -p /var/www/html/containers/Containerfile
 ```
 ## Resetting the Server
