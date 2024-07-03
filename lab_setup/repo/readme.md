@@ -29,11 +29,13 @@ Follow nfs_setup.md to setup the NFS server. This will host both regular NFS and
 ## Containerfile
 Host the Containerfile under:
 ```
+the ip should be adapted to your needs which makes match with the ip of your vm
 http://192.168.1.87/containers/Containerfile
 ```
 Server Location:
 ```
-/var/www/html/containers/Containerfile
+create the following path if needed
+mkdir -p /var/www/html/containers/Containerfile
 ```
 ## Resetting the Server
 To reset the server between exam sessions, you should repermission the NFS shares that have been tweaked during the exam tasks, and cleanup the home directories:
